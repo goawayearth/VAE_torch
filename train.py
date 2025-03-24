@@ -14,10 +14,6 @@ from train_utils.train_and_eval import train_one_epoch, evaluate, create_lr_sche
 from model.VAE_arch import VAE
 import torch.backends.cudnn
 
-
-import torchvision.transforms as T
-import torchvision.transforms.functional as TF
-
 class SegmentationPresetTrain:
     def __init__(self, base_size, crop_size, hflip_prob=0.5, vflip_prob=0.5,
                  mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)):
