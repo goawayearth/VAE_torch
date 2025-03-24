@@ -27,7 +27,6 @@ class SegmentationPresetTrain:
             trans.append(T.RandomVerticalFlip(vflip_prob))
         trans.extend([
             T.RandomCrop(crop_size),
-            T.ToGrayscale(),
             T.ToTensor(),
             T.Normalize(mean=mean, std=std),
         ])
@@ -138,10 +137,9 @@ def main(args):
                                              pin_memory=True)
 
 
-    n_epoch = 30
     enh_enc = (8, 16, 32, 64, 64)
     seg_enc = (8, 16, 32)
-    nch_in = 1
+    nch_in = 3
     nch_out = 1
 
     model = VAE(enh_enc, seg_enc, nch_in, nch_out).to(device)

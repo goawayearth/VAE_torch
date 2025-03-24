@@ -109,11 +109,3 @@ class Normalize(object):
         target = (target / 255).long()
         return image, target
 
-
-class ToGrayscale(object):
-    def __init__(self, num_output_channels=1):
-        self.num_output_channels = num_output_channels
-
-    def __call__(self, image, target):
-        image = F.to_grayscale(image, num_output_channels=self.num_output_channels)
-        return image, target
