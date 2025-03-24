@@ -27,8 +27,8 @@ class SegmentationPresetTrain:
             trans.append(T.RandomVerticalFlip(vflip_prob))
         trans.extend([
             T.RandomCrop(crop_size),
-            T.ToTensor(),
             T.ToGrayscale(),
+            T.ToTensor(),
             T.Normalize(mean=mean, std=std),
         ])
         self.transforms = T.Compose(trans)
