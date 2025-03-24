@@ -115,5 +115,5 @@ class ToGrayscale(object):
         self.num_output_channels = num_output_channels
 
     def __call__(self, image, target):
-        target = F.to_grayscale(image, num_output_channels=self.num_output_channels)
+        image = F.to_grayscale(image, num_output_channels=self.num_output_channels)
         return image, target
