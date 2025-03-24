@@ -66,10 +66,6 @@ def get_transform(train, args, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.
         return SegmentationPresetEval(crop_size, mean=mean, std=std)
 
 
-def create_model():
-    model = VAE()
-    return model
-
 
 def setup_seed(seed=2025):
     os.environ['PYTHONHASHSEED'] = str(seed)
@@ -140,8 +136,14 @@ def main(args):
                                              num_workers=num_workers,
                                              pin_memory=True)
 
-    model = create_model()
-    model.to(device)
+
+    n_epoch = 30
+    enh_enc = (8, 16, 32, 64, 64)
+    seg_enc = (8, 16, 32)
+    nch_in = 1
+    nch_out = 1
+
+    model = VAE(enh_enc, seg_enc, nch_in, nch_out).to(device)
 
     params_to_optimize = [p for p in model.parameters() if p.requires_grad]
 
