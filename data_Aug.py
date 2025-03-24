@@ -125,9 +125,9 @@ def threadOPS(img_path, new_img_path, label_path, new_label_path):
 if __name__ == '__main__':
     # DRIVE
     # 在kaggle执行的话新图像直接建在SA_Unet外面并列，为了不改变其他位置的代码，因为kaggle默认./ 是最外层
-    threadOPS("SA_Uet-pytorch/DRIVE/training/images",  # set your path of training images
+    threadOPS("VAE_torch/DRIVE/training/images",  # set your path of training images
               "DRIVE/aug/images",
-              "SA_Uet-pytorch/DRIVE/training/1st_manual",  # set your path of training labels
+              "VAE_torch/DRIVE/training/1st_manual",  # set your path of training labels
               "DRIVE/aug/label")
 
     """threadOPS("DRIVE/training/images",  # set your path of training images
