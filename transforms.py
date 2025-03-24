@@ -28,22 +28,15 @@ class Compose(object):
 
 
 class RandomResize(object):
-    def __init__(self, min_size, max_size=None):
-        self.min_size = min_size
-        if max_size is None:
-            max_size = min_size
-        self.max_size = max_size
+    def __init__(self, size=(256, 256)):
+        self.size = size  # 直接传入固定尺寸（高度, 宽度）
 
     def __call__(self, image, target):
-        size = random.randint(self.min_size, self.max_size)
-        # 这里size传入的是int类型，所以是将图像的最小边长缩放到size大小，保持比例大小不变
-        # 默认双线性插值
-        image = F.resize(image, size)
-        # 这里的interpolation注意下，在torchvision(0.9.0)以后才有InterpolationMode.NEAREST
-        # 如果是之前的版本需要使用PIL.Image.NEAREST
-        target = F.resize(target, size, interpolation=T.InterpolationMode.NEAREST)
+        # 调整图像到固定尺寸256x256，使用双线性插值
+        image = F.resize(image, self.size, interpolation=T.InterpolationMode.BILINEAR)
+        # 调整目标到相同尺寸，使用最近邻插值（避免插值引入噪声）
+        target = F.resize(target, self.size, interpolation=T.InterpolationMode.NEAREST)
         return image, target
-
 
 class RandomHorizontalFlip(object):
     def __init__(self, flip_prob):
