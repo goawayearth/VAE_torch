@@ -31,7 +31,7 @@ class SegmentationPresetTrain:
         trans.extend([
             T.RandomCrop(crop_size),
             T.ToTensor(),
-            lambda x: TF.to_grayscale(x, num_output_channels=1),  # 直接调用 to_grayscale
+            T.ToGrayscale(),
             T.Normalize(mean=[mean[0]], std=[std[0]]),  # 更新为单通道的均值和标准差
         ])
         self.transforms = T.Compose(trans)
